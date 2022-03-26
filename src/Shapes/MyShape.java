@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
-public class MyShape extends Polygon {
+import javax.swing.JPanel;
+
+public class MyShape extends Polygon{
 
 	private double x;
 
@@ -61,6 +63,7 @@ public class MyShape extends Polygon {
 	
 
 	public void draw(Graphics g) {
+
 		g.setColor(borderColor);
 		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 		g.setColor(borderColor);
@@ -71,6 +74,7 @@ public class MyShape extends Polygon {
 		return x;
 	}
 
+	
 	public void setX(double x) {
 		this.x = x;
 	}
