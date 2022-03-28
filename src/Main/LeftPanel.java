@@ -29,10 +29,8 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 	
 	public LeftPanel(Window superWindow) {
 		
-		setSize(160, 600);
+		
 		setBackground(Color.white);
-		addMouseListener(this);
-		addMouseMotionListener(this);
 		
 		this.superWindow = superWindow;
 		
@@ -47,6 +45,7 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 		this.add(shapes_label);
 		
 		circle_label = new MyLabel(new ImageIcon("src\\icons\\circle.png"));
+		circle_label.setName("circle");
 		circle_label.setBounds(13, 50, 124, 124);
 		circle_label.addMouseListener(this);
 		circle_label.addMouseMotionListener(this);
@@ -54,18 +53,21 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 		
 		rectangle_label = new MyLabel(new ImageIcon("src\\icons\\rectangle.png"));
 		rectangle_label.setBounds(13, 50, 124, 124);
+		rectangle_label.setName("rectangle");
 		rectangle_label.addMouseListener(this);
 		rectangle_label.addMouseMotionListener(this);
 		this.add(rectangle_label);
 		
 		triangle_label = new MyLabel(new ImageIcon("src\\icons\\triangle.png"));
 		triangle_label.setBounds(13, 50, 124, 124);
+		triangle_label.setName("triangle");
 		triangle_label.addMouseListener(this);
 		triangle_label.addMouseMotionListener(this);
 		this.add(triangle_label);
 		
-		polygon_label = new MyLabel(new ImageIcon("src\\icons\\polygon.png"));
+		polygon_label = new MyLabel(new ImageIcon("src\\icons\\polygon2.png"));
 		polygon_label.setBounds(13, 50, 124, 124);
+		polygon_label.setName("polygon");
 		polygon_label.addMouseListener(this);
 		polygon_label.addMouseMotionListener(this);
 		this.add(polygon_label);
@@ -73,6 +75,10 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 		
 	}
 
+	
+	public void paint(Graphics g) {
+		super.paint(g);
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -92,8 +98,9 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		superWindow.removeDragShape((MyLabel)e.getSource());
+		superWindow.removeDragShape(((MyLabel)e.getSource()).getName());
 		this.remove(currentDraggedShape);
+
 		
 	}
 
@@ -105,12 +112,12 @@ public class LeftPanel extends JPanel implements MouseListener, MouseMotionListe
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		System.out.println("Exited");
 		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 //		if(e.getSource() == circle_label) {
 //			System.out.println("circle_labelmouseClicked");
 //		} else if(e.getSource() == rectangle_label) {

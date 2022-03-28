@@ -67,7 +67,7 @@ public class MyShape extends Polygon{
 		g.setColor(borderColor);
 		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 		g.setColor(borderColor);
-		g.fillRect((int)getX() + 1, (int)getY() + 1, (int)getWidth() - 2, (int)getHeight() - 2);
+		g.fillRect((int)getX() + 1, (int)getY() + 1, (int)getWidth() - 1, (int)getHeight() - 1);
 	}
 
 	public double getX() {
