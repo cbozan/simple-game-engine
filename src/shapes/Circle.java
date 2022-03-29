@@ -1,7 +1,9 @@
-package Shapes;
+package shapes;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.Serializable;
 
 import javax.swing.ImageIcon;
@@ -33,7 +35,10 @@ public class Circle extends MyShape {
 	
 	@Override
 	public void draw(Graphics g) {
-		
+		Graphics2D g2d = (Graphics2D)g;
+		GradientPaint gp = new GradientPaint(0, 0, Color.red, 100, 0, Color.white);
+		g2d.setPaint(gp);
+		g2d.fillOval(10, 100, 80, 80);
 		g.setColor(getBorderColor());
 		g.drawOval((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 		g.setColor(getInsiderColor());

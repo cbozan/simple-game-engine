@@ -1,7 +1,8 @@
-package Main;
+package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -16,11 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Shapes.Circle;
-import Shapes.MyShape;
-import Shapes.Poly;
-import Shapes.Rect;
-import Shapes.Triangle;
+import shapes.Circle;
+import shapes.MyShape;
+import shapes.Poly;
+import shapes.Rect;
+import shapes.Triangle;
 
 public class Window extends JFrame implements MouseListener{
 	
@@ -46,6 +47,7 @@ public class Window extends JFrame implements MouseListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setUndecorated(false);
+		//setLayout(null);
 		setVisible(true);
 		WINDOW_INSETS = this.getInsets();
 		
@@ -72,18 +74,12 @@ public class Window extends JFrame implements MouseListener{
 	}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
+		super.paint((Graphics2D) g);
 		for(MyShape shape : shapes)
-			shape.draw(g);
+			shape.draw((Graphics2D) g);
 	}
 	
-	@Override
-	public void paintComponents(Graphics g) {
-		super.paintComponents(g);
-		
-		
-		
-	}
+	
 	
 	public void addDragShape(MyLabel jLabel) {
 		

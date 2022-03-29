@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,8 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Shapes.Circle;
-import Shapes.MyShape;
+import shapes.Circle;
+import shapes.MyShape;
 
 public class LeftPanel extends JPanel implements MouseListener, MouseMotionListener{
 	
