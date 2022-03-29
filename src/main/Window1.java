@@ -10,7 +10,7 @@ public class Window1 extends JFrame{
 	
 	public static Insets WINDOW_INSETS;
 	public static final int WINDOW_WIDTH = 800;
-	public static final int WINDOW_HEIGHT = 600;
+	public static final int WINDOW_HEIGHT = 500;
 	
 	public Window1() {
 		

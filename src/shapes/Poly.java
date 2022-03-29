@@ -2,6 +2,8 @@ package shapes;
 
 import java.awt.Color;
 
+import main.MyShape;
+
 public class Poly extends MyShape{
 
 	public Poly(double x, double y, double width, double height, Color borderColor, Color insiderColor, double mass) {

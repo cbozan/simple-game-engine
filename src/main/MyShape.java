@@ -1,12 +1,13 @@
-package shapes;
+package main;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
-import javax.swing.JPanel;
 
 public class MyShape extends Polygon{
+
+	private static final long serialVersionUID = 1L;
 
 	private double x;
 
@@ -29,14 +30,10 @@ public class MyShape extends Polygon{
 		this(x, y, width, height, 1);
 	}
 	
-	
 	public MyShape(double x, double y, double width, double height, double mass) {
 		this(x, y, width, height, Color.BLACK, Color.WHITE, mass);
 		
 	}
-	
-
-	
 	
 	public MyShape(double x, double y, double width, double height, Color borderColor) {
 		this(x, y, width, height, borderColor, Color.WHITE);

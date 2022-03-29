@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import shapes.Circle;
-import shapes.MyShape;
 import shapes.Poly;
 import shapes.Rect;
 import shapes.Triangle;

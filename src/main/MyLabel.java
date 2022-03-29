@@ -18,5 +18,6 @@ public class MyLabel extends JLabel implements Cloneable{
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-
+	
+	
 }

@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import shapes.Circle;
-import shapes.MyShape;
 
 public class LeftPanel extends JPanel implements MouseListener, MouseMotionListener{
 	
