@@ -40,6 +40,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		setBounds(0, 0, Window1.WINDOW_WIDTH, Window1.WINDOW_HEIGHT);
 		this.setBackground(Color.red);
 		setLayout(null);
+		this.addMouseListener(this);
 		addPanel();
 		
 	}
@@ -109,8 +110,16 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println(e.getSource());
+		for(int i = 0; i < shapes.size(); i++) {
+			
+			if(shapes.get(i).intersects(e.getX(), e.getY(), 5, 5)) {
+				shapes.get(i).setBorderColor(Color.red);
+				System.out.println("basildi.");
+				break;
+			}
+			
+		}
+		repaint();
 	}
 
 	@Override
@@ -126,10 +135,11 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(true/*intersect control*/) {
-			switch(((MyLabel)e.getSource()).getName()) {
+			switch("circle"/*((MyLabel)e.getSource()).getName()*/) {
 			
 				case "circle":
 					shapes.add(new Circle(e.getX(), e.getY() + 50, 30, 30));
+					
 					break;
 				case "rectangle":
 					shapes.add(new Rect(e.getX(), e.getY() + 50, 30, 30));

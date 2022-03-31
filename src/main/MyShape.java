@@ -1,11 +1,14 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Polygon;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
-public class MyShape extends Polygon{
+public class MyShape extends Polygon {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +27,7 @@ public class MyShape extends Polygon{
 	private double mass;
 
 	private double area;
-
+	
 	
 	public MyShape(double x, double y, double width, double height) {
 		this(x, y, width, height, 1);
@@ -56,6 +59,7 @@ public class MyShape extends Polygon{
 		this.mass = mass;
 		
 		
+		
 	}
 	
 
@@ -66,6 +70,7 @@ public class MyShape extends Polygon{
 		g.setColor(borderColor);
 		g.fillRect((int)getX() + 1, (int)getY() + 1, (int)getWidth() - 1, (int)getHeight() - 1);
 	}
+	
 
 	public double getX() {
 		return x;
@@ -127,7 +132,6 @@ public class MyShape extends Polygon{
 	public double getArea() {
 		return (getWidth() * getHeight());
 	}
-
 
 
 }

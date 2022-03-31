@@ -39,8 +39,8 @@ public class Triangle extends MyShape{
 		g.setColor(getBorderColor());
 		g.drawPolygon(xPoints, yPoints, 3);
 		
-		xPoints = new int[] {(int)((getWidth() - 2) / 2 + getX() + 1), (int)(getX() + 1), (int)(getX() + getWidth() - 1)};
-		yPoints = new int[] {(int)(getY() + 1), (int)(getY() + getHeight() - 2), (int)(getY() + getHeight() - 2)};
+		xPoints = new int[] {(int)((getWidth()) / 2 + getX()), (int)(getX() + 1), (int)(getX() + getWidth() - 1)};
+		yPoints = new int[] {(int)(getY() + 1), (int)(getY() + getHeight() - 1), (int)(getY() + getHeight() - 1)};
 		g.setColor(getInsiderColor());
 		g.fillPolygon(xPoints, yPoints, 3);
 
