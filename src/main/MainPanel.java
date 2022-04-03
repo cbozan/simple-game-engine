@@ -40,7 +40,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		setBounds(0, 0, Window1.WINDOW_WIDTH, Window1.WINDOW_HEIGHT);
 		this.setBackground(Color.red);
 		setLayout(null);
-		this.addMouseListener(this);
+		addMouseListener(this);
 		addPanel();
 		
 	}
@@ -111,12 +111,11 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		for(int i = 0; i < shapes.size(); i++) {
-			
-			if(shapes.get(i).intersects(e.getX(), e.getY(), 5, 5)) {
-				shapes.get(i).setBorderColor(Color.red);
-				System.out.println("basildi.");
+			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
+				shapes.get(i).setBorderColor(Color.BLUE);
 				break;
 			}
+			System.out.println(shapes.get(i).intersects(e.getX(), e.getY(), 2, 2) + ", " + shapes.get(i).isEmpty() + ", " + shapes.get(i).getWidth() + ", " + shapes.get(i).getHeight());
 			
 		}
 		repaint();
@@ -128,21 +127,24 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		rX = e.getX();
 		rY = e.getY();
 		
-		dragImage = ((ImageIcon)((MyLabel)e.getSource()).getIcon()).getImage();		
+		if((e.getSource().getClass().equals(MyLabel.class)))
+			dragImage = ((ImageIcon)((MyLabel)e.getSource()).getIcon()).getImage();		
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(true/*intersect control*/) {
-			switch("circle"/*((MyLabel)e.getSource()).getName()*/) {
+		if(e.getSource().getClass().equals(MyLabel.class)) {
+			switch(((MyLabel)e.getSource()).getName()) {
 			
 				case "circle":
-					shapes.add(new Circle(e.getX(), e.getY() + 50, 30, 30));
+					shapes.add(new Circle(e.getX(), e.getY() + 50, 100, 100));
+					shapes.get(shapes.size() - 1).setBorderWidth(8);
 					
 					break;
 				case "rectangle":
-					shapes.add(new Rect(e.getX(), e.getY() + 50, 30, 30));
+					shapes.add(new Rect(e.getX(), e.getY() + 50, 100, 100));
+					shapes.get(shapes.size() - 1).setBorderWidth(8);
 					break;
 				case "triangle":
 					shapes.add(new Triangle(e.getX(), e.getY() + 50, 30, 30));

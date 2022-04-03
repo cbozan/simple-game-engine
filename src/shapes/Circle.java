@@ -41,10 +41,12 @@ public class Circle extends MyShape {
 //		GradientPaint gp = new GradientPaint(0, 0, Color.BLUE, 100, 0, Color.white);
 //		g2d.setPaint(gp);
 //		g2d.fillOval((, 100, 80, 80);
+		
+		int borderThickness = getBorderWidth() == 1 ? 2 : getBorderWidth();
 		g.setColor(getBorderColor());
 		g.drawOval((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
 		g.setColor(getInsiderColor());
-		g.fillOval((int)getX() + 1, (int)getY() + 1, (int)getWidth() - 2, (int)getHeight() - 2);
+		g.fillOval((int)getX() + (int)(borderThickness / 2), (int)getY() + (int)(borderThickness / 2), (int)getWidth() - (int)(borderThickness / 2), (int)getHeight() - (int)(borderThickness / 2));
 
 	}
 	

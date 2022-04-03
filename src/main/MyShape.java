@@ -2,13 +2,15 @@ package main;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class MyShape extends Polygon {
+public class MyShape extends Rectangle{
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,6 +23,8 @@ public class MyShape extends Polygon {
 	private double height;
 
 	private Color borderColor;
+	
+	private int borderWidth;
 
 	private Color insiderColor;
 
@@ -64,13 +68,34 @@ public class MyShape extends Polygon {
 	
 
 	public void draw(Graphics g) {
-
+		int borderThickness = getBorderWidth() == 1 ? 2 : getBorderWidth();
 		g.setColor(borderColor);
 		g.drawRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
-		g.setColor(borderColor);
-		g.fillRect((int)getX() + 1, (int)getY() + 1, (int)getWidth() - 1, (int)getHeight() - 1);
+		g.setColor(getInsiderColor());
+		g.fillRect((int)getX() + (int)(borderThickness / 2), (int)getY() + (int)(borderThickness / 2), (int)getWidth() - (int)(borderThickness / 2), (int)getHeight() - (int)(borderThickness / 2));
 	}
 	
+	
+	@Override
+	public boolean intersects(double x, double y, double w, double h) {
+		if(w <= 0 || h <= 0)
+			return false;
+		double x0 = getX();
+        double y0 = getY();
+        return (x + w > x0 &&
+                y + h > y0 &&
+                x < x0 + getWidth() &&
+                y < y0 + getHeight());
+	}
+	
+
+	public int getBorderWidth() {
+		return borderWidth;
+	}
+
+	public void setBorderWidth(int borderWidth) {
+		this.borderWidth = borderWidth;
+	}
 
 	public double getX() {
 		return x;
@@ -132,6 +157,6 @@ public class MyShape extends Polygon {
 	public double getArea() {
 		return (getWidth() * getHeight());
 	}
-
+	
 
 }
