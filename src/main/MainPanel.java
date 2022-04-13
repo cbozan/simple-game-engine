@@ -23,6 +23,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	private ShapePanel shapePanel;
 	private ScenePanel scenePanel;
 	private FeaturesPanel featuresPanel;
+	private int currentShape = 0;
 	
 	int sceneX, sceneY, sceneWidth, sceneHeight;
 	
@@ -63,7 +64,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		this.add(shapePanel);
 		
 		
-		featuresPanel = new FeaturesPanel();
+		featuresPanel = new FeaturesPanel(shapes);
 		featuresPanel.setBounds(Window1.WINDOW_WIDTH - shapePanel.getWidth(), 0, 150, Window1.WINDOW_HEIGHT);
 		this.add(featuresPanel);
 		
@@ -112,10 +113,11 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	public void mouseClicked(MouseEvent e) {
 		for(int i = 0; i < shapes.size(); i++) {
 			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
-				shapes.get(i).setBorderColor(Color.BLUE);
+				shapes.get(i).setBorderColor(Color.GREEN);
+				currentShape = i;
+				featuresPanel.setCurrentShape(i);
 				break;
 			}
-			System.out.println(shapes.get(i).intersects(e.getX(), e.getY(), 2, 2) + ", " + shapes.get(i).isEmpty() + ", " + shapes.get(i).getWidth() + ", " + shapes.get(i).getHeight());
 			
 		}
 		repaint();
@@ -139,7 +141,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 			
 				case "circle":
 					shapes.add(new Circle(e.getX(), e.getY() + 50, 100, 100));
-					shapes.get(shapes.size() - 1).setBorderWidth(8);
+					shapes.get(shapes.size() - 1).setBorderWidth(4);
 					
 					break;
 				case "rectangle":

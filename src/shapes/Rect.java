@@ -26,4 +26,6 @@ public class Rect extends MyShape{
 		super(x, y, width, height);
 	}
 	
+	
+	
 }
