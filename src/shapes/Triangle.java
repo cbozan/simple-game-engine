@@ -1,5 +1,6 @@
 package shapes;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -33,16 +34,29 @@ public class Triangle extends MyShape{
 	@Override
 	public void draw(Graphics g) {
 		
-		int[] xPoints = new int[] {(int)(getWidth() / 2 + getX()), (int)(getX()), (int)(getX() + getWidth())};
-		int[] yPoints = new int[] {(int)(getY()), (int)(getY() + getHeight()), (int)(getY() + getHeight())};
+		int borderThickness = getBorderWidth() == 1 ? 2 : getBorderWidth();
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(borderThickness));
 		
-		g.setColor(getBorderColor());
-		g.drawPolygon(xPoints, yPoints, 3);
+		int[] xPoints = new int[] {(int)((this.getX() + this.getWidth()) / 2), (int)(this.getX() + this.getWidth()), (int)this.getX()};
+		int[] yPoints = new int[] {(int)(this.getY()), (int)(this.getY() + this.getHeight()), (int)(this.getY() + this.getHeight())};
 		
-		xPoints = new int[] {(int)((getWidth()) / 2 + getX()), (int)(getX() + 1), (int)(getX() + getWidth() - 1)};
-		yPoints = new int[] {(int)(getY() + 1), (int)(getY() + getHeight() - 1), (int)(getY() + getHeight() - 1)};
-		g.setColor(getInsiderColor());
+		g2.setColor(getBorderColor());
+		g2.drawPolygon(xPoints, yPoints, 3);
+		
+//		xPoints[1] = (int)(xPoints[1] - borderThickness / 2);
+//		xPoints[2] = (int)(xPoints[2] + borderThickness / 2);
+//		
+//		yPoints[0] = (int)(yPoints[0] + borderThickness / 2);
+//		yPoints[1] = (int)(yPoints[1] - borderThickness / 2);
+//		yPoints[2] = (int)(yPoints[2] - borderThickness / 2);
+		
+//		xPoints = new int[] {(int)((getWidth()) / 2 + getX()), (int)(getX() + 1), (int)(getX() + getWidth() - 1)};
+//		yPoints = new int[] {(int)(getY() + 1), (int)(getY() + getHeight() - 1), (int)(getY() + getHeight() - 1)};
+		
+		g2.setColor(getInsiderColor());
 		g.fillPolygon(xPoints, yPoints, 3);
+
 
 	}
 	

@@ -124,15 +124,15 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		gravity_textField.addCaretListener(this);
 		this.add(gravity_textField);
 		
-		
-		
-	
-		
 		// Edit text
-		
-		
-		
-		
+	}
+	
+	public void loadProperties() {
+		x_textField.setText(getCurrentShape().getX() + "");
+		y_textField.setText(getCurrentShape().getY() + "");
+		width_textField.setText(getCurrentShape().getWidth() + "");
+		height_textField.setText(getCurrentShape().getHeight() + "");
+		borderWidth_textField.setText(getCurrentShape().getBorderWidth() + "");
 		
 	}
 	
@@ -153,6 +153,7 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 
 	public void setCurrentShape(int i) {
 		this.currentShape = getShapes().get(i);
+		loadProperties();
 	}
 
 
@@ -166,32 +167,72 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		if(((JTextField)e.getSource()).equals(x_textField)) {
 			
 			try {
-				getCurrentShape().setX(Integer.valueOf(x_textField.getText()));
-			} catch(NumberFormatException nfe) {}
+				getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 			
 			
 		} else if(((JTextField)e.getSource()).equals(y_textField)) {
 			
 			try {
-				getCurrentShape().setY(Integer.valueOf(x_textField.getText()));
-			} catch(NumberFormatException nfe) {}
+				getCurrentShape().setY(Integer.parseInt(y_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 			
 		} else if(((JTextField)e.getSource()).equals(width_textField)) {
-			System.out.println("width_textField");
+			
+			try {
+				getCurrentShape().setWidth(Integer.parseInt(width_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
+		
 		} else if(((JTextField)e.getSource()).equals(height_textField)) {
-			System.out.println("height_textField");
+			
+			try {
+				getCurrentShape().setHeight(Integer.parseInt(height_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
+			
 		} else if(((JTextField)e.getSource()).equals(borderWidth_textField)) {
-			System.out.println("borderWidth_textField");
+			
+			try {
+				getCurrentShape().setBorderWidth(Integer.parseInt(borderWidth_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
+			
 		} else if(((JTextField)e.getSource()).equals(insiderColor_textField)) {
-			System.out.println("insiderColor_textField");
+			try {
+				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 		} else if(((JTextField)e.getSource()).equals(borderColor_textField)) {
-			System.out.println("borderColor_textField");
+			try {
+				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 		} else if(((JTextField)e.getSource()).equals(mass_textField)) {
-			System.out.println("mass_textField");
+			try {
+				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 		} else if(((JTextField)e.getSource()).equals(gravity_textField)) {
-			System.out.println("gravity_textField");
+			try {
+				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+			} catch(NumberFormatException nfe) {
+				
+			}
 		}
 		
+		this.getParent().repaint();
+	
 	}
 	
 	

@@ -78,7 +78,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		
+		repaint();
 		if(dragImage != null)
 			g.drawImage(dragImage, newX, newY, null);
 		//g.drawRect(shapePanel.getWidth() + 2, shapePanel.getY() + 2, Window1.WINDOW_WIDTH - shapePanel.getWidth() - 4, Window1.WINDOW_HEIGHT - 4);
@@ -111,6 +111,10 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(shapes.size() > currentShape) {
+			shapes.get(currentShape).setBorderColor(shapes.get(currentShape).getInsiderColor());
+		}
+		
 		for(int i = 0; i < shapes.size(); i++) {
 			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
 				shapes.get(i).setBorderColor(Color.GREEN);
