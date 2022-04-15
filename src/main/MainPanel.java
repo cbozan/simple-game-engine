@@ -63,24 +63,26 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		
 		this.add(shapePanel);
 		
-		
 		featuresPanel = new FeaturesPanel(shapes);
 		featuresPanel.setBounds(Window1.WINDOW_WIDTH - shapePanel.getWidth(), 0, 150, Window1.WINDOW_HEIGHT);
 		this.add(featuresPanel);
 		
-		// move to scene panel 
+		
 		sceneX = shapePanel.getWidth();
 		sceneY = this.getY();
 		sceneWidth = Window1.WINDOW_WIDTH - (shapePanel.getWidth() + featuresPanel.getWidth());
-		sceneHeight = this.getY();
+		sceneHeight = this.getHeight();
+		
+		scenePanel = new ScenePanel(sceneX, sceneY, sceneWidth, sceneHeight, shapes);
+		this.add(scenePanel);
 		
 	}
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		repaint();
 		if(dragImage != null)
 			g.drawImage(dragImage, newX, newY, null);
+		
 		//g.drawRect(shapePanel.getWidth() + 2, shapePanel.getY() + 2, Window1.WINDOW_WIDTH - shapePanel.getWidth() - 4, Window1.WINDOW_HEIGHT - 4);
 	}
 	
@@ -88,8 +90,8 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for(MyShape shape : shapes)
-			shape.draw(g);
+//		for(MyShape shape : shapes)
+//			shape.draw(g);
 		
 	}
 
@@ -104,26 +106,24 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseMoved(MouseEvent e) {}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(shapes.size() > currentShape) {
-			shapes.get(currentShape).setBorderColor(shapes.get(currentShape).getInsiderColor());
-		}
-		
-		for(int i = 0; i < shapes.size(); i++) {
-			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
-				shapes.get(i).setBorderColor(Color.GREEN);
-				currentShape = i;
-				featuresPanel.setCurrentShape(i);
-				break;
-			}
-			
-		}
+		System.out.println(e.getX() + " , " + e.getY());
+//		if(shapes.size() > currentShape) {
+//			shapes.get(currentShape).setSelected(false);
+//		}
+//		
+//		for(int i = 0; i < shapes.size(); i++) {
+//			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
+//				shapes.get(i).setSelected(true);
+//				currentShape = i;
+//				featuresPanel.setCurrentShape(currentShape);
+//				break;
+//			}
+//			
+//		}
 		repaint();
 	}
 
@@ -140,28 +140,48 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(e.getSource().getClass().equals(MyLabel.class)) {
+		if(e.getSource().getClass().equals(MyLabel.class) 
+				&& e.getX() > scenePanel.getX() && e.getY() > scenePanel.getY() //
+				&& e.getX() < scenePanel.getX() + scenePanel.getWidth()			// not enough
+				&& e.getY() < scenePanel.getY() + scenePanel.getHeight() ) {	//
+			
+			int x = e.getX() - scenePanel.getX();
+			int y = e.getY() - scenePanel.getY();
+			
 			switch(((MyLabel)e.getSource()).getName()) {
 			
+			// !!!!!! NOTE !!!!!!!
+			/*accurately detect the relationship between the 
+ 				dropped point and the held point, and set the x and y position correctly */
+			
 				case "circle":
-					shapes.add(new Circle(e.getX(), e.getY() + 50, 100, 100));
-					shapes.get(shapes.size() - 1).setBorderWidth(4);
-					
+					shapes.add(new Circle(x, y, 64, 64));
 					break;
 				case "rectangle":
-					shapes.add(new Rect(e.getX(), e.getY() + 50, 100, 100));
-					shapes.get(shapes.size() - 1).setBorderWidth(8);
+					shapes.add(new Rect(x, y, 64, 64));
 					break;
 				case "triangle":
-					shapes.add(new Triangle(e.getX(), e.getY() + 50, 30, 30));
+					shapes.add(new Triangle(x, y, 64, 64));
 					break;
 				case "polygon":
-					shapes.add(new Poly(e.getX(), e.getY() + 50, 30, 30));
+					shapes.add(new Poly(x, y, 64, 64));
 					break;
 			}
+			
+			// !!!!!!!!!!!!!!! NOT WORKING !!!!!!!!!!!!!!!!!!!!!!!!!!
+			// when a new shape is added, focus on that shape and show its properties
+			
+			shapes.get(scenePanel.getCurrentShape()).setSelected(false);
+			scenePanel.setCurrentShape(shapes.size() - 1);
+			shapes.get(scenePanel.getCurrentShape()).setSelected(true);
+			featuresPanel.loadProperties();
+			
+			repaint();
+			
 		}
-		//System.out.println(shapes.size());
+		
 		dragImage = null;
+		revalidate();
 		repaint();
 	}
 
@@ -176,5 +196,20 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		// TODO Auto-generated method stub
 		
 	}
+
+	public ShapePanel getShapePanel() {
+		return shapePanel;
+	}
+
+	public ScenePanel getScenePanel() {
+		return scenePanel;
+	}
+
+	public FeaturesPanel getFeaturesPanel() {
+		return featuresPanel;
+	}
+	
+	
+	
 	
 }

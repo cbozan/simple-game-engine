@@ -24,6 +24,7 @@ public class MyShape extends Rectangle {
 	private double mass;
 	private double area;
 	private double gravity;
+	private boolean selected;
 
 	public MyShape(double x, double y, double width, double height) {
 		this(x, y, width, height, 1);
@@ -52,7 +53,13 @@ public class MyShape extends Rectangle {
 		this.borderColor = borderColor;
 		this.insiderColor = insiderColor;
 		this.mass = mass;
+		this.selected = false;
+		this.borderWidth = 2;
 
+	}
+	
+	public void selectObject() {
+		
 	}
 
 	public void draw(Graphics g) {
@@ -118,8 +125,18 @@ public class MyShape extends Rectangle {
 	public void setHeight(double height) {
 		this.height = height;
 	}
+	
+	public boolean getSelected() {
+		return this.selected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
 
 	public Color getBorderColor() {
+		if(getSelected())
+			return Color.green;
 		return borderColor;
 	}
 

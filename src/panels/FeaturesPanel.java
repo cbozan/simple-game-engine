@@ -17,7 +17,7 @@ import main.Window1;
 public class FeaturesPanel extends JPanel implements CaretListener{
 
 	private ArrayList<MyShape> shapes;
-	private MyShape currentShape;
+	private int currentShape;
 	
 	private JTextField x_textField, y_textField, width_textField, height_textField;
 	private JTextField borderColor_textField, borderWidth_textField, insiderColor_textField, mass_textField, gravity_textField;
@@ -144,21 +144,18 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 
 
 	public MyShape getCurrentShape() {
-		if(currentShape == null) {
-			currentShape = new MyShape(0, 0, 0, 0);
-		}
-		return currentShape;
+		if(getShapes().size() <= currentShape)
+			return new MyShape(0, 0, 0, 0);
+		return getShapes().get(currentShape);
 	}
-
-
-	public void setCurrentShape(int i) {
-		this.currentShape = getShapes().get(i);
-		loadProperties();
-	}
-
 
 	public ArrayList<MyShape> getShapes() {
 		return shapes;
+	}
+	
+	public void setCurrentShape(int i) {
+		this.currentShape = i;
+		this.loadProperties();
 	}
 
 	@Override
@@ -231,7 +228,11 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 			}
 		}
 		
+		this.getParent().revalidate();
 		this.getParent().repaint();
+		this.revalidate();
+		this.repaint();
+		
 	
 	}
 	
