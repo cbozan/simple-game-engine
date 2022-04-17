@@ -1,10 +1,12 @@
 package panels;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 import javax.swing.JPanel;
 
@@ -19,6 +21,7 @@ public class ScenePanel extends JPanel implements MouseListener{
 	private int height;
 	private ArrayList<MyShape> shapes;
 	private int currentShape;
+	Long waitTime;
 	
 	public ScenePanel(int x, int y, int width, int height, ArrayList<MyShape> shapes) {
 		super();
@@ -28,16 +31,53 @@ public class ScenePanel extends JPanel implements MouseListener{
 		this.height = height;
 		this.shapes = shapes;
 		
+		
 		this.setBackground(Color.orange);
 		this.setBounds(x, y, width, height);
 		
 		this.addMouseListener(this);
+		
+		init();
+
 	}
+	
+	
+	public void init() {
+		
+		new Thread(new Runnable() {
+			
+			// FPS 
+			@Override
+			public void run() {
+				Long firstTime, lastTime;
+				firstTime = System.currentTimeMillis();
+				for(MyShape shape : getShapes()) {
+					shape.g();
+				}
+				lastTime = System.currentTimeMillis();
+				
+				try {
+					Thread.sleep(1000 - (lastTime - firstTime));
+					this.run();
+				} catch (InterruptedException e) {}
+				
+			}
+		}).start();
+		
+	}
+	
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		for(MyShape shape : getShapes())
+		for(MyShape shape : getShapes()) {
 			shape.draw(g);
+		}
+		
+		
+		
+		getParent().revalidate();
+		getParent().repaint();
+		
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -109,23 +109,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	public void mouseMoved(MouseEvent e) {}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		System.out.println(e.getX() + " , " + e.getY());
-//		if(shapes.size() > currentShape) {
-//			shapes.get(currentShape).setSelected(false);
-//		}
-//		
-//		for(int i = 0; i < shapes.size(); i++) {
-//			if(shapes.get(i).intersects(e.getX(), e.getY(), 1, 1)) {
-//				shapes.get(i).setSelected(true);
-//				currentShape = i;
-//				featuresPanel.setCurrentShape(currentShape);
-//				break;
-//			}
-//			
-//		}
-		repaint();
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -148,6 +132,8 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 			int x = e.getX() - scenePanel.getX();
 			int y = e.getY() - scenePanel.getY();
 			
+			
+			
 			switch(((MyLabel)e.getSource()).getName()) {
 			
 			// !!!!!! NOTE !!!!!!!
@@ -168,15 +154,10 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 					break;
 			}
 			
-			// !!!!!!!!!!!!!!! NOT WORKING !!!!!!!!!!!!!!!!!!!!!!!!!!
-			// when a new shape is added, focus on that shape and show its properties
-			
 			shapes.get(scenePanel.getCurrentShape()).setSelected(false);
 			scenePanel.setCurrentShape(shapes.size() - 1);
 			shapes.get(scenePanel.getCurrentShape()).setSelected(true);
-			featuresPanel.loadProperties();
-			
-			repaint();
+			featuresPanel.setCurrentShape(scenePanel.getCurrentShape());
 			
 		}
 		

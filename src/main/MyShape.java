@@ -55,11 +55,15 @@ public class MyShape extends Rectangle {
 		this.mass = mass;
 		this.selected = false;
 		this.borderWidth = 2;
+		this.gravity = 0;
 
 	}
 	
-	public void selectObject() {
-		
+	public void g() {
+		if(this.getY() + this.getHeight() < Window1.WINDOW_HEIGHT) {
+			this.setY(this.getY() + this.getGravity());
+		}
+
 	}
 
 	public void draw(Graphics g) {

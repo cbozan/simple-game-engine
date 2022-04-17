@@ -84,22 +84,22 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		borderWidth_textField.addCaretListener(this);
 		this.add(borderWidth_textField);
 		
-		insiderColor_label = new JLabel("Insider Color (#000000)"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 8);}};
+		insiderColor_label = new JLabel("Insider Color (yellow)"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 8);}};
 		insiderColor_label.setHorizontalAlignment(JLabel.CENTER);
 		insiderColor_label.setVerticalAlignment(JLabel.BOTTOM);
 		this.add(insiderColor_label);
 		
-		insiderColor_textField = new JTextField(String.valueOf(getCurrentShape().getInsiderColor()), 10);
+		insiderColor_textField = new JTextField("", 10);
 		insiderColor_textField.setHorizontalAlignment(JLabel.CENTER);
 		insiderColor_textField.addCaretListener(this);
 		this.add(insiderColor_textField);
 		
-		borderColor_label = new JLabel("Border Color (#000000)"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 8);}};
+		borderColor_label = new JLabel("Border Color (black)"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 8);}};
 		borderColor_label.setHorizontalAlignment(JLabel.CENTER);
 		borderColor_label.setVerticalAlignment(JLabel.BOTTOM);
 		this.add(borderColor_label);
 		
-		borderColor_textField = new JTextField(String.valueOf(getCurrentShape().getBorderColor()), 10);
+		borderColor_textField = new JTextField("", 10);
 		borderColor_textField.setHorizontalAlignment(JLabel.CENTER);
 		borderColor_textField.addCaretListener(this);
 		this.add(borderColor_textField);
@@ -133,6 +133,11 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		width_textField.setText(getCurrentShape().getWidth() + "");
 		height_textField.setText(getCurrentShape().getHeight() + "");
 		borderWidth_textField.setText(getCurrentShape().getBorderWidth() + "");
+		insiderColor_textField.setText("");
+		borderColor_textField.setText("");
+		mass_textField.setText(String.valueOf(getCurrentShape().getMass()));
+		gravity_textField.setText(String.valueOf(getCurrentShape().getGravity()));
+		
 		
 	}
 	
@@ -203,26 +208,37 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 			}
 			
 		} else if(((JTextField)e.getSource()).equals(insiderColor_textField)) {
+			Color color;
 			try {
-				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
-			} catch(NumberFormatException nfe) {
-				
+				color = (Color)Class.forName("java.awt.Color").getField(insiderColor_textField.getText()).get(null);
+			} catch(Exception exception) {
+				color = null;
 			}
+			
+			if(color != null)
+				getCurrentShape().setInsiderColor(color);
+			
 		} else if(((JTextField)e.getSource()).equals(borderColor_textField)) {
+			
+			Color color;
 			try {
-				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
-			} catch(NumberFormatException nfe) {
-				
+				color = (Color)Class.forName("java.awt.Color").getField(borderColor_textField.getText()).get(null);
+			} catch(Exception exception) {
+				color = null;
 			}
+			
+			if(color != null)
+				getCurrentShape().setBorderColor(color);
+			
 		} else if(((JTextField)e.getSource()).equals(mass_textField)) {
 			try {
-				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+				getCurrentShape().setMass(Double.parseDouble(mass_textField.getText()));
 			} catch(NumberFormatException nfe) {
 				
 			}
 		} else if(((JTextField)e.getSource()).equals(gravity_textField)) {
 			try {
-				//getCurrentShape().setX(Integer.parseInt(x_textField.getText()));
+				getCurrentShape().setGravity(Double.parseDouble(gravity_textField.getText()));
 			} catch(NumberFormatException nfe) {
 				
 			}
@@ -233,7 +249,6 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		this.revalidate();
 		this.repaint();
 		
-	
 	}
 	
 	
