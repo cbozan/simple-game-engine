@@ -59,9 +59,11 @@ public class MyShape extends Rectangle {
 
 	}
 	
-	public void g() {
-		if(this.getY() + this.getHeight() < Window1.WINDOW_HEIGHT) {
-			this.setY(this.getY() + this.getGravity());
+	public void g(double x) {
+		if(this.getY() + this.getHeight() + (this.getGravity() / x) <= Window1.WINDOW_HEIGHT) {
+			this.setY(this.getY() + (this.getGravity() / x));
+		} else {
+			this.setY(Window1.WINDOW_HEIGHT);
 		}
 
 	}

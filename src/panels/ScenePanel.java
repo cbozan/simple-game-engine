@@ -46,20 +46,29 @@ public class ScenePanel extends JPanel implements MouseListener{
 		
 		new Thread(new Runnable() {
 			
-			// FPS 
 			@Override
 			public void run() {
-				Long firstTime, lastTime;
-				firstTime = System.currentTimeMillis();
-				for(MyShape shape : getShapes()) {
-					shape.g();
-				}
-				lastTime = System.currentTimeMillis();
 				
-				try {
-					Thread.sleep(1000 - (lastTime - firstTime));
-					this.run();
-				} catch (InterruptedException e) {}
+				Long firstTime, lastTime;
+				int fps = MainPanel.FPS;
+				int i = fps;
+				
+				while(i-- > 0) {
+					
+					firstTime = System.currentTimeMillis();
+					for(MyShape shape : getShapes()) {
+						shape.g(fps);
+					}
+					
+					lastTime = System.currentTimeMillis();
+					
+					try {
+						Long wait = ((1000 / fps) - (lastTime - firstTime));
+						Thread.sleep(wait < 0 ? 0 : wait);
+					} catch (InterruptedException e) {}
+				}
+				
+				this.run();
 				
 			}
 		}).start();

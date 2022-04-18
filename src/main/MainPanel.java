@@ -20,6 +20,7 @@ import shapes.*;
 public class MainPanel extends JPanel implements MouseMotionListener, MouseListener{
 	
 	private static final long serialVersionUID = 1L;
+	public static int FPS = 25;
 	private ShapePanel shapePanel;
 	private ScenePanel scenePanel;
 	private FeaturesPanel featuresPanel;
