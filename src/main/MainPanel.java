@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Polygon;
@@ -13,6 +15,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import panels.*;
 import shapes.*;
@@ -64,10 +67,11 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		
 		this.add(shapePanel);
 		
+		
+		
 		featuresPanel = new FeaturesPanel(shapes);
 		featuresPanel.setBounds(Window1.WINDOW_WIDTH - shapePanel.getWidth(), 0, 150, Window1.WINDOW_HEIGHT);
 		this.add(featuresPanel);
-		
 		
 		sceneX = shapePanel.getWidth();
 		sceneY = this.getY();

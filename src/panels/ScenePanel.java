@@ -1,14 +1,23 @@
 package panels;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JViewport;
 
 import main.MainPanel;
 import main.MyShape;
@@ -30,7 +39,6 @@ public class ScenePanel extends JPanel implements MouseListener{
 		this.width = width;
 		this.height = height;
 		this.shapes = shapes;
-		
 		
 		this.setBackground(Color.orange);
 		this.setBounds(x, y, width, height);
@@ -98,9 +106,9 @@ public class ScenePanel extends JPanel implements MouseListener{
 	
 	
 	public int getCurrentShape() {
-		if(getShapes().size() <= currentShape) {
+		if(getShapes().size() < currentShape) {
 			System.out.println("Index out of bounds getCurrentShape Method");
-			return getShapes().size() - 1;
+			return getShapes().size();
 		}
 		return currentShape;
 	}

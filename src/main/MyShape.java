@@ -25,6 +25,9 @@ public class MyShape extends Rectangle {
 	private double area;
 	private double gravity;
 	private boolean selected;
+	private int bounce;
+	private double energy;
+	private boolean tendency = true;
 
 	public MyShape(double x, double y, double width, double height) {
 		this(x, y, width, height, 1);
@@ -56,20 +59,44 @@ public class MyShape extends Rectangle {
 		this.selected = false;
 		this.borderWidth = 2;
 		this.gravity = 0;
-
+		this.bounce = 1;
+		this.energy = this.height;
 	}
-	
-	public void g(double x) {
-		if(this.getY() + this.getHeight() + (this.getGravity() / x) <= Window1.WINDOW_HEIGHT) {
-			this.setY(this.getY() + (this.getGravity() / x));
-		} else {
-			this.setY(Window1.WINDOW_HEIGHT);
-		}
 
+	public void g(double x) {
+		
+		if((Window1.WINDOW_HEIGHT - energy) > this.getHeight()) {
+			
+			if(tendency) {
+				if(this.getY() + this.getHeight() + (this.getGravity() / x) <= Window1.WINDOW_HEIGHT) {
+					this.setY(this.getY() + (this.getGravity() / x));
+				}else {
+					this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
+					tendency = false;
+				}
+				
+			} else{
+				
+				if(this.getY() - (this.getGravity() / (x)) >= (Window1.WINDOW_HEIGHT + energy) / 2) {
+					this.setY(this.getY() - (this.getGravity() / (x)));
+				} else {
+					this.setY((Window1.WINDOW_HEIGHT + energy) / 2);
+					energy = (Window1.WINDOW_HEIGHT + energy) / 2;
+					tendency = true;
+				}
+				
+			}
+			
+		} else {
+			this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
+		}
+		
+		
+		
 	}
 
 	public void draw(Graphics g) {
-		
+
 		int borderThickness = getBorderWidth() == 1 ? 2 : getBorderWidth();
 
 		Graphics2D g2 = (Graphics2D) g;
@@ -80,7 +107,7 @@ public class MyShape extends Rectangle {
 		g2.setColor(getInsiderColor());
 		g2.fillRect((int) getX() + (int) (borderThickness / 2), (int) getY() + (int) (borderThickness / 2),
 				(int) getWidth() - (int) (borderThickness), (int) getHeight() - (int) (borderThickness));
-		
+
 	}
 
 	@Override
@@ -131,17 +158,17 @@ public class MyShape extends Rectangle {
 	public void setHeight(double height) {
 		this.height = height;
 	}
-	
+
 	public boolean getSelected() {
 		return this.selected;
 	}
-	
+
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 
 	public Color getBorderColor() {
-		if(getSelected())
+		if (getSelected())
 			return Color.green;
 		return borderColor;
 	}
@@ -181,7 +208,14 @@ public class MyShape extends Rectangle {
 	public void setArea(double area) {
 		this.area = area;
 	}
-	
-	
 
+	public int getBounce() {
+		return bounce;
+	}
+
+	public void setBounce(int bounce) {
+		this.bounce = bounce;
+	}
+
+	
 }
