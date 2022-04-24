@@ -25,9 +25,9 @@ public class MyShape extends Rectangle {
 	private double area;
 	private double gravity;
 	private boolean selected;
-	private int bounce;
+	private double bounce;
+	private double v = 0;
 	private double energy;
-	private boolean tendency = true;
 
 	public MyShape(double x, double y, double width, double height) {
 		this(x, y, width, height, 1);
@@ -59,39 +59,28 @@ public class MyShape extends Rectangle {
 		this.selected = false;
 		this.borderWidth = 2;
 		this.gravity = 0;
-		this.bounce = 1;
-		this.energy = this.height;
+		this.bounce = 100;
+		this.energy = (Window1.WINDOW_HEIGHT - this.y);
 	}
 
 	public void g(double x) {
 		
-		if((Window1.WINDOW_HEIGHT - energy) > this.getHeight()) {
-			
-			if(tendency) {
-				if(this.getY() + this.getHeight() + (this.getGravity() / x) <= Window1.WINDOW_HEIGHT) {
-					this.setY(this.getY() + (this.getGravity() / x));
-				}else {
-					this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
-					tendency = false;
-				}
-				
-			} else{
-				
-				if(this.getY() - (this.getGravity() / (x)) >= (Window1.WINDOW_HEIGHT + energy) / 2) {
-					this.setY(this.getY() - (this.getGravity() / (x)));
-				} else {
-					this.setY((Window1.WINDOW_HEIGHT + energy) / 2);
-					energy = (Window1.WINDOW_HEIGHT + energy) / 2;
-					tendency = true;
-				}
+		v += (this.getGravity() / x);
+		if (v < 0){
+			this.setY(this.getY() + v);
+		} else {
+			if(this.getY() + this.getHeight() + v <= Window1.WINDOW_HEIGHT) {
+				this.setY(this.getY() + v);
+			} else {
+				System.out.println("v baslangic: " + v);
+				this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
+				energy = (bounce * (energy / 100));
+				//v = (-1) * Math.sqrt(energy * (this.getGravity() / x));
+				v = (-1) * ((this.getGravity() / x) * Math.sqrt((2 * energy) / (this.getGravity() / x)));
+				System.out.println("v son: " + v);
 				
 			}
-			
-		} else {
-			this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
 		}
-		
-		
 		
 	}
 
@@ -209,7 +198,7 @@ public class MyShape extends Rectangle {
 		this.area = area;
 	}
 
-	public int getBounce() {
+	public double getBounce() {
 		return bounce;
 	}
 
