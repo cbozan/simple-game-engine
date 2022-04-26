@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
-import main.Window1;
+import main.Window;
 
 public class FeaturesPanel extends JPanel implements CaretListener{
 
@@ -112,7 +112,7 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		mass_textField.setHorizontalAlignment(JLabel.CENTER);
 		this.add(mass_textField);
 		
-		gravity_label = new JLabel("Gravity"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 3);}};
+		gravity_label = new JLabel("Gravity ( % )"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 3);}};
 		gravity_label.setHorizontalAlignment(JLabel.CENTER);
 		gravity_label.setVerticalAlignment(JLabel.BOTTOM);
 		this.add(gravity_label);
@@ -121,7 +121,7 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		gravity_textField.setHorizontalAlignment(JLabel.CENTER);
 		this.add(gravity_textField);
 		
-		bounce_label = new JLabel("Bounce"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 3);}};
+		bounce_label = new JLabel("Bounce ( % )"){@Override public Dimension getPreferredSize() {return new Dimension(FeaturesPanel.this.getWidth(), (int)super.getPreferredSize().getHeight() + 3);}};
 		bounce_label.setHorizontalAlignment(JLabel.CENTER);
 		bounce_label.setVerticalAlignment(JLabel.BOTTOM);
 		this.add(bounce_label);
@@ -155,6 +155,7 @@ public class FeaturesPanel extends JPanel implements CaretListener{
 		borderColor_textField.setText("");
 		mass_textField.setText(String.valueOf(getCurrentShape().getMass()));
 		gravity_textField.setText(String.valueOf(getCurrentShape().getGravity()));
+		bounce_textField.setText(String.valueOf(getCurrentShape().getBounce()));
 	
 		
 	}

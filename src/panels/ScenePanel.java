@@ -40,7 +40,7 @@ public class ScenePanel extends JPanel implements MouseListener{
 		this.height = height;
 		this.shapes = shapes;
 		
-		this.setBackground(Color.orange);
+		this.setBackground(new Color(210, 210, 210));
 		this.setBounds(x, y, width, height);
 		
 		this.addMouseListener(this);
@@ -57,7 +57,7 @@ public class ScenePanel extends JPanel implements MouseListener{
 			@Override
 			public void run() {
 				
-				Long firstTime, lastTime;
+				Long firstTime, lastTime, waitTime;
 				int fps = MainPanel.FPS;
 				int i = fps;
 				
@@ -71,9 +71,12 @@ public class ScenePanel extends JPanel implements MouseListener{
 					lastTime = System.currentTimeMillis();
 					
 					try {
-						Long wait = ((1000 / fps) - (lastTime - firstTime));
-						Thread.sleep(wait < 0 ? 0 : wait);
+						waitTime = ((1000 / fps) - (lastTime - firstTime));
+						Thread.sleep(waitTime < 0L ? 0L : waitTime);
 					} catch (InterruptedException e) {}
+					
+					if(fps != MainPanel.FPS)
+						break;
 				}
 				
 				this.run();
@@ -141,14 +144,12 @@ public class ScenePanel extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("" + e.getX() + ", " + e.getY() );
 		if(shapes.size() > getCurrentShape()) {
 			shapes.get(getCurrentShape()).setSelected(false);
 		}
 		
 		for(int i = 0; i < shapes.size(); i++) {
 			if(getShapes().get(i).intersects(e.getX(), e.getY(), 1, 1)) {
-				System.out.println("intesects");
 				getShapes().get(i).setSelected(true);
 				this.setCurrentShape(i);
 				//FeaturesPanel.setCurrentShape(getCurrentShape()); 

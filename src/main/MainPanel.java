@@ -27,7 +27,6 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	private ShapePanel shapePanel;
 	private ScenePanel scenePanel;
 	private FeaturesPanel featuresPanel;
-	private int currentShape = 0;
 	
 	int sceneX, sceneY, sceneWidth, sceneHeight;
 	
@@ -42,7 +41,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	
 	public MainPanel() {
 		
-		setBounds(0, 0, Window1.WINDOW_WIDTH, Window1.WINDOW_HEIGHT);
+		setBounds(0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
 		this.setBackground(Color.red);
 		setLayout(null);
 		addMouseListener(this);
@@ -53,7 +52,7 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 	public void addPanel() {
 		
 		shapePanel = new ShapePanel();
-		shapePanel.setBounds(0, 0, 150, Window1.WINDOW_HEIGHT);
+		shapePanel.setBounds(0, 0, 150, Window.WINDOW_HEIGHT);
 		
 		shapePanel.getCircle_label().addMouseListener(this);
 		shapePanel.getPolygon_label().addMouseListener(this);
@@ -70,12 +69,12 @@ public class MainPanel extends JPanel implements MouseMotionListener, MouseListe
 		
 		
 		featuresPanel = new FeaturesPanel(shapes);
-		featuresPanel.setBounds(Window1.WINDOW_WIDTH - shapePanel.getWidth(), 0, 150, Window1.WINDOW_HEIGHT);
+		featuresPanel.setBounds(Window.WINDOW_WIDTH - shapePanel.getWidth(), 0, 150, Window.WINDOW_HEIGHT);
 		this.add(featuresPanel);
 		
 		sceneX = shapePanel.getWidth();
 		sceneY = this.getY();
-		sceneWidth = Window1.WINDOW_WIDTH - (shapePanel.getWidth() + featuresPanel.getWidth());
+		sceneWidth = Window.WINDOW_WIDTH - (shapePanel.getWidth() + featuresPanel.getWidth());
 		sceneHeight = this.getHeight();
 		
 		scenePanel = new ScenePanel(sceneX, sceneY, sceneWidth, sceneHeight, shapes);

@@ -59,29 +59,25 @@ public class MyShape extends Rectangle {
 		this.selected = false;
 		this.borderWidth = 2;
 		this.gravity = 0;
-		this.bounce = 100;
-		this.energy = (Window1.WINDOW_HEIGHT - this.y);
+		this.bounce = 50;
+		this.energy = (Window.WINDOW_HEIGHT - this.y - this.height);
 	}
 
 	public void g(double x) {
 		
 		v += (this.getGravity() / x);
-		if (v < 0){
-			this.setY(this.getY() + v);
-		} else {
-			if(this.getY() + this.getHeight() + v <= Window1.WINDOW_HEIGHT) {
-				this.setY(this.getY() + v);
-			} else {
-				System.out.println("v baslangic: " + v);
-				this.setY(Window1.WINDOW_HEIGHT - this.getHeight());
-				energy = (bounce * (energy / 100));
-				//v = (-1) * Math.sqrt(energy * (this.getGravity() / x));
-				v = (-1) * ((this.getGravity() / x) * Math.sqrt((2 * energy) / (this.getGravity() / x)));
-				System.out.println("v son: " + v);
-				
-			}
-		}
 		
+		if(v < 0) {
+			this.setY(this.getY() + (v / x));
+		} else {
+			if((this.getY() + this.getHeight() + (v / x) < Window.WINDOW_HEIGHT) )
+				this.setY(this.getY() + (v / x));
+			else {
+				this.setY(Window.WINDOW_HEIGHT - this.getHeight());
+				energy = (bounce * (energy / 100));
+				v = 0 - ((this.getGravity()) * Math.sqrt((2 * energy) / (this.getGravity())));
+			}
+		} 
 	}
 
 	public void draw(Graphics g) {
